@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "react-native-wallet": ["../src/index"],
+      "react-native-wallet/*": ["../src/*"]
+    }
+  }
+}

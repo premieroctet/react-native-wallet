@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["RNWalletModule"]
+  },
+  "android": {
+    "modules": ["com.premieroctet.wallet.RNWalletModule"]
+  }
+}
