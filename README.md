@@ -4,6 +4,9 @@ A module built with [Expo Modules](https://docs.expo.dev/modules/overview/) that
 
 Uses [PassKit](https://developer.apple.com/documentation/passkit/wallet) on iOS, [Google Wallet API](https://developers.google.com/wallet/generic) on Android.
 
+<img src="https://github.com/premieroctet/react-native-wallet/assets/11079152/38012166-b714-4c20-a2d0-949d7b68e9bd" width="300" height="auto" />
+<img src="https://github.com/premieroctet/react-native-wallet/assets/11079152/2d0eb636-4591-4f3b-af15-e05d2095ceff" width="300" height="auto"  />
+
 # Installation
 
 ```bash
