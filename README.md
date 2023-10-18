@@ -106,7 +106,7 @@ The library exports a `Constants` object with the following properties:
 - `buttonLayout`:
   - `baseWidth`: The base width of the button. It is undefined on Android.
   - `baseHeight`: The base height of the button.
-  - `baseWidthFromType`: The base width of the button depending on the button type. On iOS, it returns undefined.
+  - `baseWidthFromType`: Function that takes the button type as parameter and returns the base width of the button depending on it. On iOS, it returns undefined.
 
 # Contributing
 
