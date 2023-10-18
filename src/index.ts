@@ -1,26 +1,51 @@
-import { NativeModulesProxy, EventEmitter, Subscription } from 'expo-modules-core';
+import { Platform } from 'react-native';
 
-// Import the native module. On web, it will be resolved to RNWallet.web.ts
-// and on native platforms to RNWallet.ts
-import RNWalletModule from './RNWalletModule';
+import RNWalletModule, { Constants } from './RNWalletModule';
 import RNWalletView from './RNWalletView';
-import { ChangeEventPayload, RNWalletViewProps } from './RNWallet.types';
 
-// Get the native constant value.
-export const PI = RNWalletModule.PI;
-
-export function hello(): string {
-  return RNWalletModule.hello();
+export function canAddPasses() {
+  return RNWalletModule.canAddPasses();
 }
 
-export async function setValueAsync(value: string) {
-  return await RNWalletModule.setValueAsync(value);
+/**
+ * @param urlOrToken The pkpass file url on iOS, the pass token on Android
+ * @returns boolean indicating if the pass was added
+ */
+export function addPass(urlOrToken: string): Promise<boolean> {
+  return RNWalletModule.addPass(urlOrToken);
 }
 
-const emitter = new EventEmitter(RNWalletModule ?? NativeModulesProxy.RNWallet);
+/**
+ * @param url The pkpass file url
+ * @returns boolean indicating if the pass exists in the wallet
+ *
+ *  @platform ios
+ */
+export function hasPass(url: string): Promise<boolean> {
+  if (Platform.OS !== 'ios') {
+    console.warn('RNWallet.hasPass is only available on iOS');
+    return Promise.resolve(false);
+  }
 
-export function addChangeListener(listener: (event: ChangeEventPayload) => void): Subscription {
-  return emitter.addListener<ChangeEventPayload>('onChange', listener);
+  return RNWalletModule.hasPass(url);
 }
 
-export { RNWalletView, RNWalletViewProps, ChangeEventPayload };
+/**
+ * On iOS, the removePass function requires the appropriate entitlement to
+ * be able to remove the pass. See [documentation](https://developer.apple.com/documentation/passkit/pkpasslibrary/1617083-removepass#discussion)
+ *
+ * @param url The pkpass file url
+ *
+ * @platform ios
+ */
+export function removePass(url: string): Promise<void> {
+  if (Platform.OS !== 'ios') {
+    console.warn('RNWallet.removePass is only available on iOS');
+    return Promise.resolve();
+  }
+
+  return RNWalletModule.removePass(url);
+}
+
+export { RNWalletView, Constants };
+export * from './RNWallet.types';

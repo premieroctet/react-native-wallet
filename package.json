@@ -1,5 +1,5 @@
 {
-  "name": "react-native-wallet",
+  "name": "@premieroctet/react-native-wallet",
   "version": "0.1.0",
   "description": "A module providing wallet functionalities",
   "main": "build/index.js",
@@ -25,12 +25,13 @@
   "bugs": {
     "url": "https://github.com/premieroctet/react-native-wallet/issues"
   },
-  "author": "foyarash <11079152+foyarash@users.noreply.github.com> ()",
+  "author": "foyarash <11079152+foyarash@users.noreply.github.com>",
   "license": "MIT",
   "homepage": "https://github.com/premieroctet/react-native-wallet#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/react": "^18.0.25",
+    "@types/react-native": "^0.72.4",
     "expo-module-scripts": "^3.0.11",
     "expo-modules-core": "^1.5.11"
   },

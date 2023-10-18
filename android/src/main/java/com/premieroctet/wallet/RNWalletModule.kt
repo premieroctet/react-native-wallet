@@ -1,46 +1,93 @@
 package com.premieroctet.wallet
 
+import android.app.Activity
+import android.util.Log
+import com.google.android.gms.pay.Pay
+import com.google.android.gms.pay.PayApiAvailabilityStatus
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
 
+import com.google.android.gms.pay.PayClient;
+import expo.modules.kotlin.Promise;
+import expo.modules.kotlin.exception.CodedException
+
 class RNWalletModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+  private lateinit  var walletClient: PayClient
+  private val addToGoogleWalletRequestCode = 18760
+  private var addPassPromise: Promise? = null
+
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('RNWallet')` in JavaScript.
     Name("RNWallet")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
     Constants(
-      "PI" to Math.PI
+      "buttonLayout" to mapOf(
+        "baseWidthPrimary" to ButtonTypeResource.Primary.width,
+        "baseWidthCondensed" to ButtonTypeResource.Condensed.width,
+        "baseHeight" to 48
+      )
     )
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+    AsyncFunction("canAddPasses") { promise: Promise ->
+      walletClient.getPayApiAvailabilityStatus(PayClient.RequestType.SAVE_PASSES)
+        .addOnSuccessListener { status ->
+          if (status == PayApiAvailabilityStatus.AVAILABLE) {
+            promise.resolve(true)
+          } else {
+            promise.resolve(false)
+          }
+        }
+        .addOnFailureListener { exception: Exception ->
+          promise.reject(CodedException(exception))
+        }
     }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
+    AsyncFunction("addPass") { jwt: String, promise: Promise ->
+      if (appContext.currentActivity == null) {
+        promise.reject(CodedException("Current activity not found"))
+        return@AsyncFunction
+      }
+      walletClient.savePasses(jwt, appContext.currentActivity!!, addToGoogleWalletRequestCode)
+      addPassPromise = promise
     }
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
+    OnCreate {
+      if (appContext.reactContext != null) {
+        walletClient = Pay.getClient(appContext.reactContext!!.applicationContext)
+      }
+    }
+
     View(RNWalletView::class) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { view: RNWalletView, prop: String ->
-        println(prop)
+      Events("onButtonPress")
+
+      Prop("buttonType") { view: RNWalletView, buttonType: ButtonType? ->
+        view.buttonType = buttonType ?: ButtonType.Primary
+      }
+    }
+
+    OnActivityResult {_, payload ->
+      if (payload.requestCode == addToGoogleWalletRequestCode) {
+        when (payload.resultCode) {
+          Activity.RESULT_OK -> {
+            addPassPromise?.resolve(true)
+          }
+          Activity.RESULT_CANCELED -> {
+            addPassPromise?.resolve(false)
+          }
+
+          PayClient.SavePassesResult.SAVE_ERROR -> payload.data?.let { intentData ->
+            val errorMessage = intentData.getStringExtra(PayClient.EXTRA_API_ERROR_MESSAGE)
+
+            Log.e("RNWallet", errorMessage ?: "Error after save")
+
+            addPassPromise?.reject(CodedException(errorMessage))
+          }
+
+          else -> {
+            addPassPromise?.reject(CodedException("An unknown error occurred when adding the pass"))
+          }
+        }
+
+        addPassPromise = null
       }
     }
   }
