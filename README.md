@@ -1,4 +1,4 @@
-# react-native-wallet
+# 🎟️ react-native-wallet
 
 A module built with [Expo Modules](https://docs.expo.dev/modules/overview/) that provides wallet features for iOS and Android.
 
@@ -113,6 +113,5 @@ To get started, fork and clone the repo, and install the dependencies in both ro
 
 To run the example app, run `yarn start` in the root folder, and `yarn ios` or `yarn android` in the example folder.
 
-To updathe iOS code, open the `example/ios/reactnativewalletexample.xcworkspace` file, and edit the `RNWallet` pod files.
-
-To update the Android code, open the `example/android` folder in Android Studio and edit the `react-native-wallet` module.
+To updathe iOS code, run `yarn open:ios`, and edit the `RNWallet` pod files.
+To update the Android code, run `yarn open:android` and edit the `react-native-wallet` module.
