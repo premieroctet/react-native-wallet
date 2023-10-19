@@ -1,4 +1,4 @@
-import { StyleProp, ViewStyle } from 'react-native';
+import { StyleProp, ViewStyle } from "react-native";
 
 /**
  * @platform ios

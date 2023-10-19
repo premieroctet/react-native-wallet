@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
-import RNWalletModule, { Constants } from './RNWalletModule';
-import RNWalletView from './RNWalletView';
+import RNWalletModule, { Constants } from "./RNWalletModule";
+import RNWalletView from "./RNWalletView";
 
 export function canAddPasses() {
   return RNWalletModule.canAddPasses();
@@ -22,8 +22,8 @@ export function addPass(urlOrToken: string): Promise<boolean> {
  *  @platform ios
  */
 export function hasPass(url: string): Promise<boolean> {
-  if (Platform.OS !== 'ios') {
-    console.warn('RNWallet.hasPass is only available on iOS');
+  if (Platform.OS !== "ios") {
+    console.warn("RNWallet.hasPass is only available on iOS");
     return Promise.resolve(false);
   }
 
@@ -39,8 +39,8 @@ export function hasPass(url: string): Promise<boolean> {
  * @platform ios
  */
 export function removePass(url: string): Promise<void> {
-  if (Platform.OS !== 'ios') {
-    console.warn('RNWallet.removePass is only available on iOS');
+  if (Platform.OS !== "ios") {
+    console.warn("RNWallet.removePass is only available on iOS");
     return Promise.resolve();
   }
 
@@ -48,4 +48,4 @@ export function removePass(url: string): Promise<void> {
 }
 
 export { RNWalletView, Constants };
-export * from './RNWallet.types';
+export * from "./RNWallet.types";

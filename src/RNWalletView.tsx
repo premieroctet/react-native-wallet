@@ -1,13 +1,13 @@
-import { requireNativeViewManager } from 'expo-modules-core';
-import * as React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { requireNativeViewManager } from "expo-modules-core";
+import * as React from "react";
+import { Platform, StyleSheet } from "react-native";
 
-import { ButtonType, RNWalletViewProps } from './RNWallet.types';
-import { Constants } from './RNWalletModule';
+import { ButtonType, RNWalletViewProps } from "./RNWallet.types";
+import { Constants } from "./RNWalletModule";
 
 const NativeView: React.ComponentType<
-  Omit<RNWalletViewProps, 'onPress'> & { onButtonPress?: () => void }
-> = requireNativeViewManager('RNWallet');
+  Omit<RNWalletViewProps, "onPress"> & { onButtonPress?: () => void }
+> = requireNativeViewManager("RNWallet");
 
 export default function RNWalletView({
   onPress,
