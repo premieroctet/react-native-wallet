@@ -32,7 +32,6 @@ class RNWalletView(context: Context, appContext: AppContext) : ExpoView(context,
 
     private val imageButtonView = ImageButton(context).also {
         val buttonTypeResource = buttonTypeToResource(buttonType)
-        Log.v("RNWallet", "Button width is " + buttonTypeResource.width)
         it.layoutParams = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         it.isClickable = true;
         it.setImageResource(buttonTypeResource.resourceId)
