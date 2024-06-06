@@ -118,3 +118,7 @@ To run the example app, run `yarn start` in the root folder, and `yarn ios` or `
 
 To updathe iOS code, run `yarn open:ios`, and edit the `RNWallet` pod files.
 To update the Android code, run `yarn open:android` and edit the `react-native-wallet` module.
+
+# Sponsors
+
+This project is being developed by [Premier Octet](https://www.premieroctet.com), a Web and mobile agency specializing in React and React Native developments.
