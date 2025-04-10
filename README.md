@@ -1,5 +1,7 @@
 # 🎟️ react-native-wallet
 
+**NOTE: This is a fork of [premieroctet/react-native-wallet](https://github.com/premieroctet/react-native-wallet). All credit for the original implementation goes to Premier Octet. This fork includes JVM compatibility fixes for Android builds.**
+
 A module built with [Expo Modules](https://docs.expo.dev/modules/overview/) that provides wallet features for iOS and Android.
 
 Uses [PassKit](https://developer.apple.com/documentation/passkit/wallet) on iOS, [Google Wallet API](https://developers.google.com/wallet/generic) on Android.
@@ -24,37 +26,37 @@ You will need to install [Expo Modules](https://docs.expo.dev/bare/installing-ex
 # Usage
 
 ```tsx
-import { Alert, Button, StyleSheet, View } from 'react-native';
-import * as RNWallet from 'react-native-wallet';
+import { Alert, Button, StyleSheet, View } from "react-native";
+import * as RNWallet from "react-native-wallet";
 
 export default function App() {
   const onAdd = async () => {
     try {
-      const isAdded = await RNWallet.addPass('<PassUrlOrToken>');
+      const isAdded = await RNWallet.addPass("<PassUrlOrToken>");
 
-      Alert.alert('Pass added', isAdded ? 'Yes' : 'No');
+      Alert.alert("Pass added", isAdded ? "Yes" : "No");
     } catch (error) {
-      Alert.alert('Error', (error as Error).message);
+      Alert.alert("Error", (error as Error).message);
     }
   };
 
   const onCheckPassExists = async () => {
     try {
-      const passExists = await RNWallet.hasPass('<PassUrlOrToken>');
+      const passExists = await RNWallet.hasPass("<PassUrlOrToken>");
 
-      Alert.alert('Pass exists', passExists ? 'Yes' : 'No');
+      Alert.alert("Pass exists", passExists ? "Yes" : "No");
     } catch (error) {
-      Alert.alert('Error', (error as Error).message);
+      Alert.alert("Error", (error as Error).message);
     }
   };
 
   const onRemovePass = async () => {
     try {
-      await RNWallet.removePass('<PassUrlOrToken>');
+      await RNWallet.removePass("<PassUrlOrToken>");
 
-      Alert.alert('Pass removed');
+      Alert.alert("Pass removed");
     } catch (error) {
-      Alert.alert('Error', (error as Error).message);
+      Alert.alert("Error", (error as Error).message);
     }
   };
 
@@ -62,9 +64,9 @@ export default function App() {
     try {
       const canAddPasses = await RNWallet.canAddPasses();
 
-      Alert.alert('Can add passes', canAddPasses ? 'Yes' : 'No');
+      Alert.alert("Can add passes", canAddPasses ? "Yes" : "No");
     } catch (error) {
-      Alert.alert('Error', (error as Error).message);
+      Alert.alert("Error", (error as Error).message);
     }
   };
 

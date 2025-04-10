@@ -1,5 +1,5 @@
 {
-  "name": "@premieroctet/react-native-wallet",
+  "name": "@mfuaux/react-native-wallet",
   "version": "1.0.1",
   "description": "A React-Native wrapper for Apple PassKit and Google Wallet API",
   "main": "build/index.js",
@@ -21,13 +21,13 @@
     "react-native-wallet",
     "RNWallet"
   ],
-  "repository": "https://github.com/premieroctet/react-native-wallet",
+  "repository": "https://github.com/mattsimplepixels/react-native-wallet",
   "bugs": {
-    "url": "https://github.com/premieroctet/react-native-wallet/issues"
+    "url": "https://github.com/mattsimplepixels/react-native-wallet/issues"
   },
-  "author": "foyarash <11079152+foyarash@users.noreply.github.com>",
+  "author": "Matthew Fuaux",
   "license": "MIT",
-  "homepage": "https://github.com/premieroctet/react-native-wallet#readme",
+  "homepage": "https://github.com/mattsimplepixels/react-native-wallet#readme",
   "dependencies": {},
   "devDependencies": {
     "@types/react": "^18.0.25",
