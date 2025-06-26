@@ -2,7 +2,7 @@
 
 A module built with [Expo Modules](https://docs.expo.dev/modules/overview/) that provides wallet features for iOS and Android.
 
-Uses [PassKit](https://developer.apple.com/documentation/passkit/wallet) on iOS, [Google Wallet API](https://developers.google.com/wallet/generic) on Android.
+Uses [PassKit](https://developer.apple.com/documentation/passkit/wallet) on iOS, [Google Wallet API](https://developers.google.com/wallet/generic) on Android. This now supports both signed and unsigned JWTs for Android.
 
 <img src="https://github.com/premieroctet/react-native-wallet/assets/11079152/ef45634f-a671-403d-b7dd-211af2d612b8" width="300" height="auto" />
 <img src="https://github.com/premieroctet/react-native-wallet/assets/11079152/5c27516d-37b8-434e-b8e9-7731cca0a5ee" width="300" height="auto"  />
@@ -88,7 +88,8 @@ export default function App() {
 #### Methods
 
 - `canAddPasses(): boolean`: Check if the device can add passes.
-- `addPass(urlOrToken: string): Promise<boolean>`: Add a pass to the wallet. Returns `true` if the pass was added or if its already added. Returns `false` if the user cancelled the operation. `urlOrToken` should be the pkpass URL for iOS, and the pass JWT for Android.
+- `addPass(urlOrToken: string): Promise<boolean>`: Add a pass to the wallet. Returns `true` if the pass was added or if its already added. Returns `false` if the user cancelled the operation. `urlOrToken` should be the pkpass URL for iOS, and the **unsigned** pass JWT for Android. [Read more here](https://developers.google.com/wallet/generic/android#add-a-pass)
+- `addPassWithSignedJwt(signedJwt: string): Promise<boolean>`: Add a pass to the wallet using a signed JWT. Returns `true` if the pass was added or if its already added. Returns `false` if the user cancelled the operation. This is for Android only. [Read more here](https://developers.google.com/wallet/generic/android#add-a-pass)
 - `hasPass(urlOrToken: string): Promise<boolean>`: Check if a pass exists in the wallet. Returns `true` if the pass exists, `false` otherwise. On Android, this always returns `false`.
 - `removePass(urlOrToken: string): Promise<void>`: Remove a pass from the wallet. On Android, this is no-op. On iOS, make sure you have the correct entitlements. See [documentation](https://developer.apple.com/documentation/passkit/pkpasslibrary/1617083-removepass#discussion).
 

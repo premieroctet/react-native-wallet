@@ -16,6 +16,21 @@ export function addPass(urlOrToken: string): Promise<boolean> {
 }
 
 /**
+ * @param signedJwt The signed JWT
+ * @returns boolean indicating if the pass was added
+ *
+ * @platform android
+ */
+export function addPassWithSignedJwt(signedJwt: string): Promise<boolean> {
+  if (Platform.OS !== "android") {
+    console.warn("RNWallet.addPassWithSignedJwt is only available on Android");
+    return Promise.resolve(false);
+  }
+
+  return RNWalletModule.addPassWithSignedJwt(signedJwt);
+}
+
+/**
  * @param url The pkpass file url
  * @returns boolean indicating if the pass exists in the wallet
  *
