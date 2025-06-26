@@ -50,6 +50,15 @@ class RNWalletModule : Module() {
       addPassPromise = promise
     }
 
+    AsyncFunction("addPassWithSignedJwt") { jwt: String, promise: Promise ->
+      if (appContext.currentActivity == null) {
+        promise.reject(CodedException("Current activity not found"))
+        return@AsyncFunction
+      }
+      walletClient.savePassesJwt(jwt, appContext.currentActivity!!, addToGoogleWalletRequestCode)
+      addPassPromise = promise
+    }
+
     OnCreate {
       if (appContext.reactContext != null) {
         walletClient = Pay.getClient(appContext.reactContext!!.applicationContext)
