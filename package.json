@@ -1,6 +1,6 @@
 {
   "name": "@premieroctet/react-native-wallet",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React-Native wrapper for Apple PassKit and Google Wallet API",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -41,5 +41,6 @@
     "expo": "*",
     "react": "*",
     "react-native": "*"
-  }
+  },
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
